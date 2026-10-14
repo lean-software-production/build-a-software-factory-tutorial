@@ -49,7 +49,7 @@ it to students.
 - `the {string} line has been copied into the target` — 005+. From the target that has it, into the latest.
 - `a run named {string}, on the {string} line, with that seed and target` — 005+. The latest target and its seed; the line is one of that target's. The first run named is the current one.
 - `the {string} run has been started` — 005+. It has run once, with all its settings.
-- `this assembly line` — 004+. The graph that follows, as the line under test: in the factory's folder through 004, in the latest target from 005.
+- `this assembly line` — 004+. The graph that follows, as the line under test: its `assembly-line.dot`, in the factory's `assembly-lines/` in 004, in the latest target's `.assembly-lines/` from 005.
 - `the validator has been taken out, so the doer goes straight to the planner` — 004.
 - `the validator has been taken out of the {string} line, so the doer goes straight to the planner` — 005+.
 - `the three big brains has replaced the validator on the {string} line` — 006+. The target has the three big brains; on that line the doer's edge to the validator becomes an unlabelled edge to each reviewer, each reviewer has an unlabelled edge to the synthesiser, and the validator's edges become the synthesiser's.
@@ -85,19 +85,19 @@ the line routes on: `complete` for the planner, `satisfied` and
 - `the {word} answers in prose, with no result` — 001+. Having done its work: the agent or doer writes a file called `UNREADABLE`.
 - `the {word} says {string} before its result` — 001+. A line of prose, then its result.
 - `the doer says {string}, then {string}` — 007+. Generates the first line; the second only once the attempt carries on to its end.
-- `the reviewers' lens is {word}` — 006+. From 003, written in each reviewer's `AGENTS.md`.
+- `the reviewers' lens is {word}` — 006+. Written in each reviewer's `AGENTS.md`.
 - `the reviewers run on Anthropic, Google and OpenAI models` — 007+. reviewer_1 to reviewer_3's configurations name those providers.
 - `the {word} cannot be run` — 001+. Its harness is a path where no program exists.
 - `no harness is chosen` — 001–002. pi, for every machine.
-- `no harness is chosen for the {word}` — 004+. pi, for that machine.
+- `no harness is chosen for the {word}` — 003+. pi, for that machine.
 - `the agent is pi` — 001, `@real-agent`.
 - `every machine runs pi` — 002+, `@real-agent`.
 - `the validator's lens is {word}` — 002+. From 003, written in the validator's `AGENTS.md`.
-- `the {word}'s AGENTS.md says {string}` — 003+. That machine's instructions: the `AGENTS.md` in its folder in the latest target's `.assembly-lines/.machines/`.
+- `the {word}'s AGENTS.md says {string}` — 003+. That machine's instructions: the `AGENTS.md` in its folder, `machines/<name>/` in the factory in 003, and in its line's `machines/` from 004.
 
 ### Limits
 
-- `the factory allows at most three attempts per pass` — 002.
+- `the factory allows at most three attempts per pass` — 002–003.
 - `the factory allows at most three attempts at a task` — 004+. The orchestrator's limit; the line only routes.
 
 ### The plan
@@ -133,8 +133,8 @@ running, rather than running it to the end.
 
 - `the factory builds the same target using its absolute path` — 001–004. Repeat the previous target-building command to completion, replacing only its target argument with the absolute path to that same folder.
 
-- `the factory runs one pass` — 001–002.
-- `the factory runs to completion` — 001–002.
+- `the factory runs one pass` — 001–003.
+- `the factory runs to completion` — 001–003.
 - `the factory runs` — 004.
 - `the factory runs the {string} run` — 005+. With all its settings: naming them again is fine.
 - `the factory runs the {string} run, given only its name` — 005+.
@@ -220,7 +220,7 @@ the run and compare after it finishes.
 - `it reports that it could not run the {word}` — 001+. The agent in 001; a machine from 002.
 - `it reports that it could not read the {word}'s result` — 001+. Its answer was not a result.
 - `it reports that the result of {word} has no field {string}` — 004+. A label on the line names a field the machine's result lacks.
-- `it reports that the pass hit its limit` — 002.
+- `it reports that the pass hit its limit` — 002–003.
 - `it reports that a task hit its limit` — 004+.
 - `it reports that it has no machine called {string}` — 004+.
 - `it reports that the branches from {word} do not meet` — 006+. A fan out whose branches do not each lead, by one unlabelled edge, to the same machine.
@@ -307,7 +307,7 @@ What a machine (or 001's agent) was given:
 - `the {word} was given the work for the {word} task` — 002+.
 - `it was not given the work for the {word} task` — 002+.
 - `the {word} was given {string}` — 002+.
-- `it was not given {string}` — 006+. The machine the step before names: the synthesiser in 006, any machine from 003.
+- `it was not given {string}` — 003+. The machine the step before names.
 - `the {word} was given the validator's findings` — 002+. The findings in the validator's result.
 - `the doer was given the synthesiser's findings` — 006+.
 - `the validator has changed neither the plan nor the work` — 002+, `@real-agent`.

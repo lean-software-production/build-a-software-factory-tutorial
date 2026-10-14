@@ -2,13 +2,16 @@ Feature: Assembly line
 
   The assembly line is the route through the factory's machines, written
   as a Graphviz graph the factory reads before it does any work. The
-  factory has one assembly line, kept in its own folder. These rules are
-  about the line itself — which lines the factory will accept — not about
-  running along one. Running is in orchestration.feature.
+  factory has one assembly line, a folder of its own in assembly-lines/ in
+  the factory's folder: the graph is assembly-line.dot there, and the
+  line's machines are in machines/ beside it. These rules are about the
+  line itself — which lines the factory will accept — not about running
+  along one. Running is in orchestration.feature.
 
   start and finish mark where the line begins and ends. Every other node
-  names a machine the factory has: one configured in its folder under that
-  name. An edge only routes. Its label names a field of the result of the
+  names a machine on the line: one with a folder of its own,
+  machines/<name>/, holding its AGENTS.md and the rest of its
+  configuration. An edge only routes. Its label names a field of the result of the
   machine it leaves: the edge is taken when that field is true, and one
   labelled "not" and the field's name when it is false. An edge with no
   label is taken whatever the result. The planner decides whether there is
