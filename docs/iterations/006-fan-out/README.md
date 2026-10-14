@@ -1,4 +1,4 @@
-# Homework 5 — Fan out
+# Homework 6 — Fan out
 
 Read `FACTORY.md`, then the feature files in `features/`.
 

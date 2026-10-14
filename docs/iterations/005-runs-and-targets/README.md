@@ -1,4 +1,4 @@
-# Homework 4 — Runs and targets
+# Homework 5 — Runs and targets
 
 Read `FACTORY.md`, then the feature files in `features/`. Together they are
 the whole spec of the factory at this point, not just the new parts.
@@ -14,7 +14,7 @@ factory source stays in `factory/`.
   machines they name in `.assembly-lines/.machines/`, a folder each. A
   machine's name is unique in its target: every line there that names
   the doer runs the same doer. Move your line and machines from homework
-  3 into `tetris/tetris-003/.assembly-lines/` (or whichever target you
+  4 into `tetris/tetris-004/.assembly-lines/` (or whichever target you
   choose).
 - **Each execution is a named run.** You name the run, and the first time
   you start it you give it a target, one of that target's lines, and a seed.
@@ -39,7 +39,7 @@ The exact shape is your choice. Run from the repository root, with
 
 ```sh
 # a new run: its target, its line and its seed
-$ bin/factory --run tetris --target tetris/tetris-003 --line careful --seed tetris/spec.md
+$ bin/factory --run tetris --target tetris/tetris-004 --line careful --seed tetris/spec.md
 
 # after that, its name is enough
 $ bin/factory --run tetris
@@ -47,7 +47,7 @@ $ bin/factory --run tetris
 # a second target: write snake/spec.md describing Snake first
 # give it a line and machines of its own
 $ mkdir -p snake/snake1
-$ cp -r tetris/tetris-003/.assembly-lines snake/snake1/
+$ cp -r tetris/tetris-004/.assembly-lines snake/snake1/
 $ bin/factory --run snake --target snake/snake1 --line quick --seed snake/spec.md
 ```
 

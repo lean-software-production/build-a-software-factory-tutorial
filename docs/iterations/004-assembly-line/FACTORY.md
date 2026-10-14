@@ -30,6 +30,6 @@ no seed, without calling an agent. Before stopping successfully, the
 factory records the final plan, including updates after a work commit.
 A completed run leaves no uncommitted changes in the target.
 
-New since iteration 2: `assembly-line.feature`. The pass is gone — the
+New since iteration 3: `assembly-line.feature`. The pass is gone — the
 line says what runs next — and each machine is configured under its
 name.

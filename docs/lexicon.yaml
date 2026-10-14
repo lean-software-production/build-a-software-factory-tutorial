@@ -148,7 +148,7 @@ lens:
 machine:
   term: "Machine"
   definition: |-
-    An *agent* running in a non-interactive harness: it is handed its inputs, runs to completion, and returns a result, with no human in the conversation while it works. Non-interactivity is the whole of the distinction — see *agent* for everything else. The internals can be a model call or ordinary deterministic code; from the *assembly line*'s point of view it makes no difference. A machine can be a *doer* or a *validator*. Its instructions and settings are kept with it, not in the factory: in the tutorial, a folder of its own that is its harness's configuration, holding its `AGENTS.md`, settings such as its model, and its own copy of the login. The harness reads no other configuration. [→ harnesses](building-blocks/harnesses.md)
+    An *agent* running in a non-interactive harness: it is handed its inputs, runs to completion, and returns a result, with no human in the conversation while it works. Non-interactivity is the whole of the distinction — see *agent* for everything else. The internals can be a model call or ordinary deterministic code; from the *assembly line*'s point of view it makes no difference. A machine can be a *doer* or a *validator*. Its instructions and settings are kept with it, not in the factory: in the tutorial, a folder of its own holding its `AGENTS.md` and its configuration, such as the harness and model that run it. [→ harnesses](building-blocks/harnesses.md)
 
 mcp-model-context-protocol:
   term: "MCP (Model Context Protocol)"

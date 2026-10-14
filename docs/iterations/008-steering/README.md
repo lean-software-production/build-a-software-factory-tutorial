@@ -1,4 +1,4 @@
-# Homework 7 — Steering
+# Homework 8 — Steering
 
 Read `FACTORY.md`, then the feature files in `features/`.
 
@@ -25,7 +25,7 @@ a `prompt`, answered `{"outcome": "injected"}` when the message went in.
 
 ## The commands you'll end up with
 
-On top of homework 6's, one more — again, the exact shape is yours:
+On top of homework 7's, one more — again, the exact shape is yours:
 
 ```sh
 $ bin/factory say tetris doer "use curses, not print"

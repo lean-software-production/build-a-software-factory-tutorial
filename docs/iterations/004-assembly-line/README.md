@@ -1,9 +1,9 @@
-# Homework 3 — The assembly line
+# Homework 4 — The assembly line
 
 Read `FACTORY.md`, then the feature files in `features/`. Together they are
 the whole spec of the factory at this point, not just the new parts.
 
-The factory does the same work it did for homework 2. What changes is where
+The factory does the same work it did for homework 3. What changes is where
 the route lives. Until now it was hidden in your code: the order of planner,
 doer and validator, the retry, and the looping in the pass. All of it comes
 out into an **assembly line** — a graph the factory reads — and the planner,
@@ -41,8 +41,8 @@ The factory source stays in `factory/`, and the target argument still
 selects the output codebase. Running the assembly line replaces `--all`:
 
 ```sh
-$ bin/factory --seed tetris/spec.md --target tetris/tetris-003
-$ npm --prefix tetris/tetris-003 start
+$ bin/factory --seed tetris/spec.md --target tetris/tetris-004
+$ npm --prefix tetris/tetris-004 start
 ```
 
 A fresh target starts with a fresh plan in `.factory/plan.md`. Reusing
