@@ -3,6 +3,11 @@
 Read `FACTORY.md`, then the feature files in `features/`. Together they
 are the whole spec of the factory at this point, not just the new parts.
 
+Homework 5a, machine configuration, was added after homework 5. If you
+haven't done it, sync your fork on GitHub, set `factory/ITERATION` to
+`005 Done`, and say "fetch iteration": you'll get 5a, and this homework
+after it.
+
 The factory builds the same software it built for homework 5. What is new
 is that you can watch it: what every machine generates, and what every
 machine costs.
@@ -33,6 +38,10 @@ machine generates; the last line of that text, as its result; and the
 `outputTokens` — as what it spent. That usage is still a draft in ACP,
 but the Claude Code and Codex adapters send it, and so does the pi
 bridge.
+
+Which ACP agent runs a machine, with which model, stays in the machine's
+configuration, and so does the model's provider, which the token totals
+follow. The factory still hands each machine its `AGENTS.md`.
 
 ## The commands you'll end up with
 

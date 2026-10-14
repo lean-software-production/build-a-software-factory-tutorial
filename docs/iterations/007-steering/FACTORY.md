@@ -6,9 +6,12 @@ Once a task's work is committed, the planner marks it done, and it says
 when the plan is complete.
 
 The factory writes none of its machines' work itself, and never reads
-the plan. A machine has a name and a harness that runs it: `pi` by
-default, or another named in the machine's configuration. Each machine
-answers with a result: JSON describing the job it did.
+the plan. A machine has a name and a folder of its own, holding its
+`AGENTS.md` — its instructions, which the factory gives it and no other
+machine — and the rest of its configuration: the harness that runs it,
+`pi` by default or another named there, and whatever that harness needs,
+such as its model. Each machine answers with a result: JSON describing
+the job it did.
 
 The route through the machines is an **assembly line**: a graph the
 factory reads before it does any work. An edge only routes: its label

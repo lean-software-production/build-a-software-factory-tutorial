@@ -85,14 +85,15 @@ the line routes on: `complete` for the planner, `satisfied` and
 - `the {word} answers in prose, with no result` — 001+. Having done its work: the agent or doer writes a file called `UNREADABLE`.
 - `the {word} says {string} before its result` — 001+. A line of prose, then its result.
 - `the doer says {string}, then {string}` — 006+. Generates the first line; the second only once the attempt carries on to its end.
-- `the reviewers' lens is {word}` — 005+.
+- `the reviewers' lens is {word}` — 005+. From 005a, written in each reviewer's `AGENTS.md`.
 - `the reviewers run on Anthropic, Google and OpenAI models` — 006+. reviewer_1 to reviewer_3's configurations name those providers.
 - `the {word} cannot be run` — 001+. Its harness is a path where no program exists.
 - `no harness is chosen` — 001–002. pi, for every machine.
 - `no harness is chosen for the {word}` — 003+. pi, for that machine.
 - `the agent is pi` — 001, `@real-agent`.
 - `every machine runs pi` — 002+, `@real-agent`.
-- `the validator's lens is {word}` — 002+.
+- `the validator's lens is {word}` — 002+. From 005a, written in the validator's `AGENTS.md`.
+- `the {word}'s AGENTS.md says {string}` — 005a+. That machine's instructions: the `AGENTS.md` in its folder in the latest target's `.assembly-lines/.machines/`.
 
 ### Limits
 
@@ -236,7 +237,6 @@ the run and compare after it finishes.
 - `every reviewer was given the work for the {word} task` — 005+.
 - `every reviewer was given {string}` — 005+.
 - `the synthesiser was given {string}, {string} and {string}` — 005+.
-- `it was not given {string}` — 005+.
 - `the reviewers' findings are about {word}` — 005+, `@real-agent`.
 
 ### The daemon, watching and the record
@@ -307,6 +307,7 @@ What a machine (or 001's agent) was given:
 - `the {word} was given the work for the {word} task` — 002+.
 - `it was not given the work for the {word} task` — 002+.
 - `the {word} was given {string}` — 002+.
+- `it was not given {string}` — 005+. The machine the step before names: the synthesiser in 005, any machine from 005a.
 - `the {word} was given the validator's findings` — 002+. The findings in the validator's result.
 - `the doer was given the synthesiser's findings` — 005+.
 - `the validator has changed neither the plan nor the work` — 002+, `@real-agent`.

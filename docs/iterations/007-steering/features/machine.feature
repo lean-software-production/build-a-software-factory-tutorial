@@ -1,14 +1,17 @@
 Feature: Machines
 
   No machine's work is written by the factory. The planner, the doer and
-  the validator are machines on the line. Each has a name, and a harness
-  that runs it: an ACP agent, which the factory speaks the Agent Client
-  Protocol to over stdio — pi, through its ACP bridge, by default, or
-  another named in the machine's configuration. Each machine has a folder
-  of its own in the target, .assembly-lines/.machines/<name>/, holding its
-  configuration; every line in a target that names the doer runs the same
-  doer. A machine could as well be ordinary code. Whatever runs it, a
-  machine answers with a result: JSON describing the job it did.
+  the validator are machines on the line. Each has a name and a folder of
+  its own in the target, .assembly-lines/.machines/<name>/; every line in
+  a target that names the doer runs the same doer. The folder holds the
+  machine's AGENTS.md, its instructions: what the machine is for and how
+  it does its job. It also holds the rest of its configuration: the
+  harness that runs it, and whatever that harness needs, such as its
+  model. The harness is an ACP agent, which the factory speaks the Agent
+  Client Protocol to over stdio — pi, through its ACP bridge, by default,
+  or another named in the machine's configuration. A machine could as
+  well be ordinary code. Whatever runs it, a machine answers with a
+  result: JSON describing the job it did.
 
   Most examples say what each machine does in them: the planner plans
   the tasks alpha and beta, say, and the validator is never satisfied.
@@ -57,6 +60,27 @@ Feature: Machines
       When the factory runs the "tetris" run
       Then there are three new work commits
       And each new work commit contains the work for one task
+
+  Rule: A machine is given its own instructions
+
+    The factory gives each machine the AGENTS.md in its folder, whatever
+    harness runs it, and no other machine's. Instructions live with the
+    machine, not in the factory: change a machine's AGENTS.md and the
+    machine changes, with no change to the factory.
+
+    Example: The doer's instructions
+      Given a plan with three tasks, none of them done
+      And the doer's AGENTS.md says "write the smallest code that does the task"
+      When the factory runs the "tetris" run
+      Then the doer was given "write the smallest code that does the task"
+
+    Example: Each machine is given only its own
+      Given a plan with three tasks, none of them done
+      And the doer's AGENTS.md says "write the smallest code that does the task"
+      And the validator's AGENTS.md says "be strict about error handling"
+      When the factory runs the "tetris" run
+      Then the validator was given "be strict about error handling"
+      And it was not given "write the smallest code that does the task"
 
   Rule: The doer is pointed at the plan and the seed
 
