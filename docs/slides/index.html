@@ -271,11 +271,11 @@
       <p class="iteration-kicker">Homework 005</p>
       <h2 class="sk-section">Runs and targets</h2>
       <div class="sk-row three-up">
-        <div class="sk-panel sk-mustard"><div class="sk-step"><span class="sk-label">Factory</span></div><p>Moves into its own codebase.</p></div>
-        <div class="sk-panel sk-teal"><div class="sk-step"><span class="sk-label">Target</span></div><p>Owns its product, lines and machines.</p></div>
-        <div class="sk-panel sk-forest"><div class="sk-step"><span class="sk-label">Run</span></div><p>Remembers a target, line, seed and plan.</p></div>
+        <div class="sk-panel sk-mustard"><div class="sk-step"><span class="sk-label">Factory</span></div><p>Keeps nothing of a run: only its own code.</p></div>
+        <div class="sk-panel sk-teal"><div class="sk-step"><span class="sk-label">Line</span></div><p>A folder in the target: its graph, its machines and its runs.</p></div>
+        <div class="sk-panel sk-forest"><div class="sk-step"><span class="sk-label">Run</span></div><p>Remembers its line and seed; its plan and record are committed on its line.</p></div>
       </div>
-      <pre class="single-command"><code>bin/factory --run tetris --target tetris/tetris-004 --line careful --seed tetris/spec.md</code></pre>
+      <pre class="single-command"><code>bin/factory --run tetris --target tetris/tetris-005 --line careful --seed tetris/spec.md</code></pre>
       <div class="gain"><span>Factory gains</span><strong>Many resumable runs across many codebases.</strong></div>
     </section>
 
@@ -306,7 +306,7 @@
           <pre><code>./factory --run tetris …
 # started run tetris
 
-./factory watch tetris
+./factory watch tetris --target …
 # planner | …
 # doer    | …
 # tokens  | …</code></pre>
@@ -325,9 +325,9 @@
       <div class="split iteration-split">
         <div>
           <p class="lede compact">Watching becomes a conversation. Send a message to the machine working now.</p>
-          <pre><code>./factory say tetris doer \
+          <pre><code>./factory say tetris --target … doer \
   "use curses, not print"</code></pre>
-          <p class="small-copy">A message belongs to that machine run. For a lasting instruction, change the seed, plan or machine prompt.</p>
+          <p class="small-copy">A message belongs to that machine run. For a lasting instruction, change the seed, the plan or the machine's <code>AGENTS.md</code>.</p>
         </div>
         <div class="sk-bubble sk-tail-right">“I can see what you’re doing—and redirect you before the turn ends.”</div>
       </div>

@@ -18,6 +18,7 @@ decided, when, and why. Each record follows [adr_template.md](adr_template.md).
 | [0001](0001-use-adrs.md) | use ADRs | accepted |
 | [0002](0002-students-write-their-own-test-doubles.md) | students write their own test doubles | accepted |
 | [0003](0003-fan-out-is-edges-on-the-line.md) | fan out is edges on the line | accepted |
+| [0004](0004-lines-own-their-machines-and-runs.md) | lines own their machines and runs | accepted |
 
 ## Not in here
 
