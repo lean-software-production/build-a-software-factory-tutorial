@@ -10,20 +10,49 @@ introduces named runs that remember what they build and how, while the
 factory source stays in `factory/`.
 
 - **The assembly lines move into the target.** A target holds its
-  product and, in `.assembly-lines/`, the lines that build it, with the
-  machines they name in `.assembly-lines/.machines/`, a folder each. A
-  machine's name is unique in its target: every line there that names
-  the doer runs the same doer. Move your line and machines from homework
-  4 into `tetris/tetris-004/.assembly-lines/` (or whichever target you
-  choose).
-- **Each execution is a named run.** You name the run, and the first time
-  you start it you give it a target, one of that target's lines, and a seed.
-  The run remembers all three; after that, its name is enough. It keeps
-  its plan with the factory, in `factory/runs/<name>/plan.md`. To resume your
-  existing game, move its `.factory/plan.md` there; a run
-  now owns that plan. Or start with a fresh target. Unlike the target's
-  plan in earlier homeworks, run state must stay out of Git: add
-  `/factory/runs/` to your repository-root `.gitignore`.
+  product and, in `.assembly-lines/`, the lines that build it: a folder
+  each, named for the line, holding its `assembly-line.dot` and its
+  machines in `machines/`. Each line has its own machines, so two lines
+  can each have a doer, configured differently. Move your line folder
+  from homework 4 into `tetris/tetris-005/.assembly-lines/` (or whichever
+  target you choose).
+- **Each execution is a named run, kept on its line.** You name the run,
+  and the first time you start it you give it one of the target's lines
+  and a seed. The run remembers both. It lives in its line's folder, in
+  `runs/<name>/`, so you always say which target it is in: its target and
+  its name are enough to find it. Its plan is `plan.md` there. To resume
+  your existing game, move its `.factory/plan.md` into the run's folder;
+  a run now owns that plan. Or start with a fresh target.
+- **The run's folder is committed.** The factory commits it in commits
+  of its own, never with the work, so a run's plan and record stay in
+  Git with what it built.
+
+```text
+tetris/tetris-005/
+  .assembly-lines/
+    careful/
+      assembly-line.dot
+      machines/
+        planner/    AGENTS.md, and its configuration
+        doer/
+        validator/
+      runs/
+        tetris/
+          plan.md
+          ...       whatever the machines keep for the run
+    quick/
+      assembly-line.dot
+      machines/
+        planner/
+        doer/
+      runs/
+  src/ ...          the product
+```
+
+The seed can be anywhere: it is the run's input, not part of it. The run's
+folder is where the run's own things go. Tell your machines, in their
+`AGENTS.md`, to keep anything they make for the run there: notes,
+artifacts, logs. The factory tells each machine where the folder is.
 
 Once the route is data, a target can hold more than one line. Write a second
 one — the same line without the validator will do — and have each run say
@@ -39,21 +68,22 @@ The exact shape is your choice. Run from the repository root, with
 
 ```sh
 # a new run: its target, its line and its seed
-$ bin/factory --run tetris --target tetris/tetris-004 --line careful --seed tetris/spec.md
+$ bin/factory --run tetris --target tetris/tetris-005 --line careful --seed tetris/spec.md
 
-# after that, its name is enough
-$ bin/factory --run tetris
+# after that, its name and its target are enough
+$ bin/factory --run tetris --target tetris/tetris-005
 
 # a second target: write snake/spec.md describing Snake first
-# give it a line and machines of its own
-$ mkdir -p snake/snake1
-$ cp -r tetris/tetris-004/.assembly-lines snake/snake1/
+# copy a line into it, machines included, but no runs
+$ mkdir -p snake/snake1/.assembly-lines
+$ cp -r tetris/tetris-005/.assembly-lines/quick snake/snake1/.assembly-lines/
+$ rm -rf snake/snake1/.assembly-lines/quick/runs
 $ bin/factory --run snake --target snake/snake1 --line quick --seed snake/spec.md
 ```
 
 The factory should build whatever the new seed describes, without disturbing
 the first run.
 
-The checks still run against a copy of your factory, because runs live with
-the factory. The copy still builds in separate targets, now each holding its
-own lines and machines.
+The checks still run against a copy of your factory, which now keeps
+nothing of its own about runs. The copy builds in separate targets, each
+holding its own lines, their machines and their runs.

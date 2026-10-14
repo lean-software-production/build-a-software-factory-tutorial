@@ -1,14 +1,14 @@
 Feature: Choosing where to build
 
-  The first invocation of a run requires a target. Later invocations can
-  use the target the run remembers. A target is a plain folder; targets and the factory
-  may share a repository. Work commits affect only the selected target's
+  Every invocation of a run names its target: the run is kept in the
+  target, in its line's runs folder, so the factory finds it by its target
+  and its name. A target is a plain folder; targets and the factory may
+  share a repository. Work commits affect only the selected target's
   generated work, leaving unrelated staged and unstaged changes alone.
 
   Background:
     Given a copy of the factory
     And a new target, with a seed describing a game of Tetris
-    And the target has the machines planner, doer and validator
     And the target has an assembly line "careful" on which the doer's work is validated
     And a run named "tetris", on the "careful" line, with that seed and target
     And the factory has staged and unstaged changes
@@ -16,7 +16,7 @@ Feature: Choosing where to build
     And the doer does the next task in the plan
     And the validator is always satisfied
 
-  Rule: A new run needs a target
+  Rule: Every invocation needs a target
 
     Example: No target on the first invocation
       Given no target is chosen
@@ -24,6 +24,13 @@ Feature: Choosing where to build
       Then it reports that a target is required
       And no agent has been called
       And the factory's own files and unrelated uncommitted changes are as they were
+
+    Example: No target for a run that has started
+      Given the "tetris" run has been started
+      And no target is chosen
+      When the factory runs the "tetris" run
+      Then it reports that a target is required
+      And there are no new work commits
 
   Rule: The factory uses an existing repository without disturbing other work
 

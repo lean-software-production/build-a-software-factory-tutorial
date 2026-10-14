@@ -34,25 +34,24 @@ it to students.
 - `a copy of the factory` — 001+. The factory copied into a new folder of its own, with no runs or targets.
 - `a new target` — 001–004. A plain folder in the test repository, selected by an explicit target argument.
 - `the target folder does not exist` — 001–004. The explicitly selected output path does not exist yet.
-- `the target is outside any Git repository` — 001+. Select a folder with no repository among its ancestors. From 005 place the selected line and machines there before invoking the run; this setup must not initialize Git.
+- `the target is outside any Git repository` — 001+. Select a folder with no repository among its ancestors. From 005 place the selected line's folder, machines included, there before invoking the run; this setup must not initialize Git.
 - `the factory has staged and unstaged changes` — 001+. Unrelated changes outside the target, including both staged and unstaged edits to the same file.
-- `no target is chosen` — 001+. Omit the target argument. From 005 this is the first invocation of a run with no saved configuration, not a resumed run.
+- `no target is chosen` — 001+. Omit the target argument. From 005 any invocation of a run, first or later: the target is never remembered, because the run is kept in it.
 - `a new target, with a seed describing a game of {word}` — 005+. A fresh target folder and selected seed in the same test repository as the factory copy. Never initialize a nested repository here; shared-repository behavior must remain covered.
 - `the seed has been deleted` — 001+. The selected seed file (the current run's seed from 005).
 
 ### Runs and lines
 
-- `the target has the machines planner, doer and validator` — 005+. Their configurations, in the latest target's `.assembly-lines/.machines/`.
-- `the target has the three big brains` — 006+. reviewer_1 to reviewer_3 and the synthesiser, each a machine of the latest target's, configured alike but for their models.
-- `the target has an assembly line {string} on which the doer's work is validated` — 005+. The line in `assembly-line.feature`'s Background, in the latest target's `.assembly-lines/`.
-- `the target has an assembly line {string} on which the doer goes straight to the planner` — 005+. The same line, without the validator.
-- `the {string} line has been copied into the target` — 005+. From the target that has it, into the latest.
+- `the line has the three big brains` — 006+. reviewer_1 to reviewer_3 and the synthesiser, each a machine in the line's `machines/` (the line under test, or the current run's line), configured alike but for their models.
+- `the target has an assembly line {string} on which the doer's work is validated` — 005+. The line in `assembly-line.feature`'s Background, as `.assembly-lines/<name>/assembly-line.dot` in the latest target, with its own planner, doer and validator in its `machines/`.
+- `the target has an assembly line {string} on which the doer goes straight to the planner` — 005+. The same line, without the validator, with its own planner and doer.
+- `the {string} line has been copied into the target` — 005+. Its folder, machines included but no runs, from the target that has it into the latest.
 - `a run named {string}, on the {string} line, with that seed and target` — 005+. The latest target and its seed; the line is one of that target's. The first run named is the current one.
 - `the {string} run has been started` — 005+. It has run once, with all its settings.
 - `this assembly line` — 004+. The graph that follows, as the line under test: its `assembly-line.dot`, in the factory's `assembly-lines/` in 004, in the latest target's `.assembly-lines/` from 005.
-- `the validator has been taken out, so the doer goes straight to the planner` — 004.
+- `the validator has been taken out, so the doer goes straight to the planner` — 004+. The line under test.
 - `the validator has been taken out of the {string} line, so the doer goes straight to the planner` — 005+.
-- `the three big brains has replaced the validator on the {string} line` — 006+. The target has the three big brains; on that line the doer's edge to the validator becomes an unlabelled edge to each reviewer, each reviewer has an unlabelled edge to the synthesiser, and the validator's edges become the synthesiser's.
+- `the three big brains has replaced the validator on the {string} line` — 006+. The line has the three big brains; on it the doer's edge to the validator becomes an unlabelled edge to each reviewer, each reviewer has an unlabelled edge to the synthesiser, and the validator's edges become the synthesiser's.
 - `{string} is misspelt {string} throughout the assembly line` — 004+.
 - `{string} is misspelt {string} throughout the {string} line` — 005+.
 - `the edge from {word} to {word} has been taken out` — 004+.
@@ -93,7 +92,8 @@ the line routes on: `complete` for the planner, `satisfied` and
 - `the agent is pi` — 001, `@real-agent`.
 - `every machine runs pi` — 002+, `@real-agent`.
 - `the validator's lens is {word}` — 002+. From 003, written in the validator's `AGENTS.md`.
-- `the {word}'s AGENTS.md says {string}` — 003+. That machine's instructions: the `AGENTS.md` in its folder, `machines/<name>/` in the factory in 003, and in its line's `machines/` from 004.
+- `the {word}'s AGENTS.md says {string}` — 003+. That machine's instructions: the `AGENTS.md` in its folder, `machines/<name>/` in the factory in 003, and in its line's `machines/` from 004 (the current run's line from 005).
+- `on the {string} line, the {word}'s AGENTS.md says {string}` — 005+. The same, for the machine on that line.
 
 ### Limits
 
@@ -137,8 +137,8 @@ running, rather than running it to the end.
 - `the factory runs to completion` — 001–003.
 - `the factory runs` — 004.
 - `the factory runs the {string} run` — 005+. With all its settings: naming them again is fine.
-- `the factory runs the {string} run, given only its name` — 005+.
-- `the factory runs the {string} run with that target` — 005+. The latest target, in place of its own.
+- `the factory runs the {string} run, given only its name and target` — 005+.
+- `the factory runs the {string} run on the {string} line` — 005+. Its target, and a line other than its own.
 - `the factory reads the assembly line` — 004+. Checks the line under test without running it.
 - `the doer's first attempt at a task is untestable` — 002+, `@real-agent`.
 - `the doer finishes its attempt` — 008+.
@@ -158,7 +158,7 @@ running, rather than running it to the end.
 
 - `the committed plan matches the plan on disk` — 001–004. Compare the plan in HEAD with the target's plan file; no parsing by the factory is required.
 - `the target has no uncommitted changes` — 001–004. Check tracked and untracked non-ignored files inside the selected target. Unrelated changes elsewhere must remain untouched.
-- `there are no new work commits` — 001–004. Plan-only commits are allowed.
+- `there are no new work commits` — 001+. Plan-only commits are allowed, and from 005 commits of the run's folder.
 - `there is a plan` — 001+.
 - `there is no plan` — 001+.
 - `the plan shows the first task as done` — 001+.
@@ -169,9 +169,8 @@ running, rather than running it to the end.
 - `the plan still has those three tasks` — 001+.
 - `the plan has the tasks {string} and {string}, and no others` — 001+.
 - `the plan is .factory/plan.md in the target` — 001–004.
-- `there is no plan in the factory's folder` — 001–004.
-- `the plan is plan.md in the factory's runs folder, under tetris` — 005+.
-- `there is no plan in the target` — 005+.
+- `there is no plan in the factory's folder` — 001+.
+- `the plan is plan.md in the {string} line's runs folder, under {word}` — 005+. `.assembly-lines/<line>/runs/<run>/plan.md` in the target.
 - `each run has its own plan` — 005+.
 - `every task in the plan comes from the seed` — 001+, `@real-agent`.
 - `that task has a subtask for the finding` — 002+, `@real-agent`.
@@ -182,8 +181,10 @@ running, rather than running it to the end.
 These are about the selected target (the current run's target from 005).
 Count commits with a pathspec for the selected target. A work commit
 changes product files; a plan-only commit does not count as a work commit.
-Plans are part of target history through 004; from 005 they live outside
-the target. Other targets may share the same repository. Each invocation captures
+Plans are part of target history throughout: through 004 in the target's
+`.factory/`, and from 005 in the run's folder, `.assembly-lines/<line>/runs/<run>/`,
+which the factory commits in commits of its own. Neither kind is a work
+commit. Other targets may share the same repository. Each invocation captures
 a new baseline before running: commit counts are relative to that invocation,
 not to scenario setup. For a daemon, capture the baseline before starting
 the run and compare after it finishes.
@@ -191,7 +192,9 @@ the run and compare after it finishes.
 - `there is one new work commit` — 001+.
 - `there are two new work commits` — 001+.
 - `there are three new work commits` — 001+.
-- `there are no new commits` — 001+.
+- `the run's folder has been committed in commits of its own` — 005+. Every new commit that touches the run's folder touches nothing outside it, and there is at least one.
+- `the run's folder has no uncommitted changes` — 005+. Tracked and untracked files under the run's folder, after the invocation ends.
+- `there are no new commits` — 001–004. From 005 an invocation always commits its run's folder: see `there are no new work commits`.
 - `it contains the work for the {word} task` — 001+. The newest work commit holds that task's product files and no other task's product files. In 001–004 it may also include the plan.
 - `its only product file is SENTINEL` — 001–004. Inspect the latest work commit: apart from the plan, its only changed file is SENTINEL.
 - `it contains SENTINEL and nothing else` — 005+.
@@ -227,7 +230,7 @@ the run and compare after it finishes.
 - `it reports that it could not read reviewer_2's result` — 006+.
 - `it reports that it could not run reviewer_2` — 006+.
 - `it reports that finish cannot be reached from {word}` — 004+. Among the machines it names.
-- `it says the {string} run already has a target` — 005+.
+- `it says the {string} run already has a line` — 005+.
 
 ### Fan out
 
@@ -258,7 +261,7 @@ from, and the tokens in and out per machine.
 - `I see what the planner generated` — 007+.
 - `it shows what every machine generated` — 007+.
 - `it shows what every machine spent` — 007+.
-- `the record is in the run's folder in the factory, not in the target` — 007+.
+- `the record is in the run's folder in the target, and committed` — 007+. Under `.assembly-lines/<line>/runs/<run>/`, with no uncommitted changes once the run has ended.
 - `it shows tokens in and tokens out for the {word}` — 007+.
 - `it shows a total for each of Anthropic, Google and OpenAI` — 007+.
 - `it shows a total for the whole run` — 007+.
@@ -304,6 +307,7 @@ What a machine (or 001's agent) was given:
 - `the {word} was asked for a result with the fields {string} and {string}` — 002+.
 
 - `the {word} was pointed at the plan and at the seed` — 001+.
+- `the {word} was pointed at the run's folder` — 005+. `.assembly-lines/<line>/runs/<run>/` in the target, for whatever the machine keeps.
 - `the {word} was given the work for the {word} task` — 002+.
 - `it was not given the work for the {word} task` — 002+.
 - `the {word} was given {string}` — 002+.

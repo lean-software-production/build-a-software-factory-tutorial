@@ -28,10 +28,10 @@ a `prompt`, answered `{"outcome": "injected"}` when the message went in.
 On top of homework 7's, one more — again, the exact shape is yours:
 
 ```sh
-$ bin/factory say tetris doer "use curses, not print"
+$ bin/factory say tetris --target tetris/tetris-008 doer "use curses, not print"
 delivered to doer
 
-$ bin/factory say tetris validator "be strict about error handling"
+$ bin/factory say tetris --target tetris/tetris-008 validator "be strict about error handling"
 refused: doer is what is running
 ```
 

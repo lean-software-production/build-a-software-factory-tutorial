@@ -6,9 +6,12 @@ Once a task's work is committed, the planner marks it done, and it says
 when the plan is complete.
 
 The factory writes none of its machines' work itself, and never reads
-the plan. A machine has a name and a harness that runs it: `pi` by
-default, or another named in the machine's configuration. Each machine
-answers with a result: JSON describing the job it did.
+the plan. A machine has a name and a folder of its own on its line,
+holding its `AGENTS.md` — its instructions, which the factory gives it
+and no other machine — and the rest of its configuration: the harness
+that runs it, `pi` by default or another named there, and whatever that
+harness needs, such as its model. Each machine answers with a result:
+JSON describing the job it did.
 
 The route through the machines is an **assembly line**: a graph the
 factory reads before it does any work. An edge only routes: its label
@@ -16,18 +19,22 @@ names a field of the result of the machine it leaves. The planner
 decides whether there is more to do; the line holds the loop back to it
 and the retry after failed validation, and the factory limits how many
 attempts a task gets. Lines live in the target, in `.assembly-lines/`,
-with the machines they name each in a folder of its own in
-`.assembly-lines/.machines/`. A target can hold several lines, and every
-line in it that names the doer runs the same doer. A line never names a
-target.
+a folder each, named for the line: its graph, `assembly-line.dot`, its
+machines, each in a folder of its own in `machines/`, and its runs, in
+`runs/`. A target can hold several lines, and each has its own machines.
+A line never names a target.
 
 A **run** is a named execution of one of the target's assembly lines on a
 seed, saying what to build, against a target, the codebase to build it in. The
 factory source is separate from the generated product. Targets
 are plain folders: commits in their containing repository include only
 the selected target's work and preserve unrelated staged changes. Git is
-initialized only when no repository contains the target. The run keeps
-its plan in `runs/<name>/plan.md` in the factory's folder, never in the target.
+initialized only when no repository contains the target. The run lives in its line's folder, in `runs/<name>/`, with its plan and whatever
+its machines keep for it, and the factory commits that folder in
+commits of its own, never with the work. A run is found by its target
+and its name, so every invocation names the target; nothing of a run is
+kept in the factory.
 
-New since iteration 4: runs, and targets that hold their own lines and
-machines. Plans move from each target into the factory's `runs/` folder.
+New since iteration 4: runs, and targets that hold their own lines, each
+with its machines and its runs. A run's plan moves from the target's
+`.factory/` into its folder on its line, which is committed.

@@ -3,7 +3,8 @@ Feature: Observability
   Reading what the machines generate. Each machine streams what it
   generates to the factory as it goes, and the factory keeps it all in the
   run's record: every line, which machine it came from, and what each
-  machine spent.
+  machine spent. The record is in the run's folder in the target, beside
+  its plan, and is committed with it.
 
   A machine an example sees at work, part-way through or in a run just
   started, goes on working until the example says it finishes, or the run
@@ -12,7 +13,6 @@ Feature: Observability
   Background:
     Given a copy of the factory
     And a new target, with a seed describing a game of Tetris
-    And the target has the machines planner, doer and validator
     And the target has an assembly line "careful" on which the doer's work is validated
     And a run named "tetris", on the "careful" line, with that seed and target
     And the planner plans the tasks alpha and beta
@@ -77,4 +77,4 @@ Feature: Observability
       And I read the "tetris" run's record
       Then it shows what every machine generated
       And it shows what every machine spent
-      And the record is in the run's folder in the factory, not in the target
+      And the record is in the run's folder in the target, and committed

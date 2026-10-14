@@ -5,7 +5,6 @@ Feature: Planning
   Background:
     Given a copy of the factory
     And a new target, with a seed describing a game of Tetris
-    And the target has the machines planner, doer and validator
     And the target has an assembly line "careful" on which the doer's work is validated
     And a run named "tetris", on the "careful" line, with that seed and target
     And the planner plans the tasks alpha and beta
@@ -53,16 +52,17 @@ Feature: Planning
       When the factory runs the "tetris" run
       Then every task in the plan comes from the seed
 
-  Rule: A run keeps its plan with the factory, not in the target
+  Rule: A run keeps its plan in its line's runs folder, in the target
 
-    Each run has a folder of its own, in runs/ in the factory, and its
-    plan is plan.md there.
+    Each run has a folder of its own, in the runs/ folder of the line it
+    runs, and its plan is plan.md there. Nothing of a run is kept in the
+    factory.
 
     Example: The first invocation of a run named "tetris"
       Given no plan
       When the factory runs the "tetris" run
-      Then the plan is plan.md in the factory's runs folder, under tetris
-      And there is no plan in the target
+      Then the plan is plan.md in the "careful" line's runs folder, under tetris
+      And there is no plan in the factory's folder
 
   Rule: The planner keeps the plan, and the factory never reads it
 
@@ -91,29 +91,32 @@ Feature: Planning
       When the factory runs the "tetris" run
       Then the work for alpha and beta has been committed
 
-  Rule: A run remembers its assembly line, its seed and its target
+  Rule: A run remembers its assembly line and its seed
 
-    The line, the seed and the target are given when a run starts. After
-    that, its name is enough.
+    The line and the seed are given when a run starts. After that, its
+    name and its target are enough. The run is kept in its target, so the
+    target is named every time.
 
     Example: The "tetris" run, run again by name
       Given the "tetris" run has been started
       And a plan whose first task is done
-      When the factory runs the "tetris" run, given only its name
+      When the factory runs the "tetris" run, given only its name and target
       Then there are two new work commits
       And the validator has been called twice
 
   Rule: A run's settings cannot be changed once it has started
 
-    Naming a run again with its original line, seed and target is fine,
-    and so is naming it alone. Naming it with different ones is refused.
+    Naming a run again with its original line and seed is fine, and so is
+    naming it with its target alone. Naming it with a different line is
+    refused: a run's name is unique in its target, whichever line it
+    runs.
 
-    Example: The "tetris" run is given a different target
+    Example: The "tetris" run is given a different line
       Given the "tetris" run has been started
-      And a new target, with a seed describing a game of Tetris
-      When the factory runs the "tetris" run with that target
+      And the target has an assembly line "quick" on which the doer goes straight to the planner
+      When the factory runs the "tetris" run on the "quick" line
       Then the factory refuses
-      And it says the "tetris" run already has a target
+      And it says the "tetris" run already has a line
 
     Example: The "tetris" run is given the same settings again
       Given the "tetris" run has been started
@@ -125,7 +128,6 @@ Feature: Planning
 
     Example: Two runs, one after the other
       Given a new target, with a seed describing a game of Snake
-      And the target has the machines planner, doer and validator
       And the "careful" line has been copied into the target
       And a run named "snake", on the "careful" line, with that seed and target
       When the factory runs the "tetris" run

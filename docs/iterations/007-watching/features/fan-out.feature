@@ -21,7 +21,6 @@ Feature: Fan out
   Background:
     Given a copy of the factory
     And a new target, with a seed describing a game of Tetris
-    And the target has the machines planner, doer and validator
     And the target has an assembly line "careful" on which the doer's work is validated
     And a run named "tetris", on the "careful" line, with that seed and target
     And the three big brains has replaced the validator on the "careful" line
@@ -86,7 +85,7 @@ Feature: Fan out
       And the synthesiser is never satisfied
       When the factory runs the "tetris" run
       Then the doer has been called three times
-      And there are no new commits
+      And there are no new work commits
 
     Example: The synthesiser rejects the doer's first attempt
       Given a plan with one task, not done
@@ -109,7 +108,7 @@ Feature: Fan out
       When the factory runs the "tetris" run
       Then it reports that it could not read reviewer_2's result
       And the synthesiser has not been called
-      And there are no new commits
+      And there are no new work commits
       And the factory has stopped
 
     Example: A reviewer cannot be run
@@ -118,7 +117,7 @@ Feature: Fan out
       When the factory runs the "tetris" run
       Then it reports that it could not run reviewer_2
       And the synthesiser has not been called
-      And there are no new commits
+      And there are no new work commits
       And the factory has stopped
 
   Rule: The branches check the work the doer just produced

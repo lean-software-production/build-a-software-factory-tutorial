@@ -45,11 +45,11 @@ Run these commands from the repository root, through `bin/factory`:
 
 ```sh
 # start a run — you get your terminal back
-$ bin/factory --run tetris --target tetris/tetris-002 --line careful --seed tetris/spec.md
+$ bin/factory --run tetris --target tetris/tetris-007 --line careful --seed tetris/spec.md
 started run tetris
 
 # attach to it, now or later — catches you up, then follows live
-$ bin/factory watch tetris
+$ bin/factory watch tetris --target tetris/tetris-007
 planner    | ...
 doer       | ...
 tokens     doer 12.4k in / 3.1k out   anthropic 15.5k   google 4.2k   openai 3.9k   run 23.6k
@@ -58,9 +58,9 @@ tokens     doer 12.4k in / 3.1k out   anthropic 15.5k   google 4.2k   openai 3.9
 $ bin/factory --run snake --target snake/snake1 --line quick --seed snake/spec.md
 refused: run tetris is running
 
-# stop the run (the factory stays up); start it again later by name alone
-$ bin/factory stop tetris
-$ bin/factory --run tetris
+# stop the run (the factory stays up); start it again later by name and target
+$ bin/factory stop tetris --target tetris/tetris-007
+$ bin/factory --run tetris --target tetris/tetris-007
 
 # stop the factory itself — its run stops with it
 $ bin/factory stop
@@ -71,6 +71,12 @@ prints as it goes, and printing is not this: it is gone when the
 scrollback is gone, and it belongs to the terminal that started the run.
 A record you can attach to late, catch up on, and still read tomorrow is
 a different piece of machinery.
+
+The record belongs to the run, so it goes in the run's folder, beside
+its plan: `.assembly-lines/<line>/runs/<name>/` in the target. What each
+machine generated, its transcript, and what it spent all go there, and
+the factory commits them with the rest of the run's folder, so a
+generation's record stays in Git with the game it built.
 
 ## Your doubles speak ACP too
 

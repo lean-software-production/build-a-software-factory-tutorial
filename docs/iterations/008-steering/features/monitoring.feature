@@ -8,7 +8,6 @@ Feature: Monitoring
   Background:
     Given a copy of the factory
     And a new target, with a seed describing a game of Tetris
-    And the target has the machines planner, doer and validator
     And the target has an assembly line "careful" on which the doer's work is validated
     And a run named "tetris", on the "careful" line, with that seed and target
     And the planner plans the tasks alpha and beta

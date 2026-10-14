@@ -7,7 +7,6 @@ Feature: Orchestration
   Background:
     Given a copy of the factory
     And a new target, with a seed describing a game of Tetris
-    And the target has the machines planner, doer and validator
     And the target has an assembly line "careful" on which the doer's work is validated
     And a run named "tetris", on the "careful" line, with that seed and target
     And the planner plans the tasks alpha and beta
@@ -21,6 +20,29 @@ Feature: Orchestration
     if none contains it. Work commits include only the selected target's
     generated work, excluding .assembly-lines/. Unrelated staged and
     unstaged changes are left alone.
+
+  Rule: The run's folder is committed, apart from the work
+
+    A run's folder, .assembly-lines/<line>/runs/<run>/, holds its plan and
+    whatever its machines keep there. The factory commits it in commits of
+    its own, never with the work, so a run's record stays with what it
+    built. An invocation leaves nothing in the run's folder uncommitted,
+    however it ends.
+
+    Example: Three tasks
+      Given a plan with three tasks, none of them done
+      When the factory runs the "tetris" run
+      Then there are three new work commits
+      And the run's folder has been committed in commits of its own
+      And the run's folder has no uncommitted changes
+
+    Example: A task that gives up
+      Given a plan with three tasks, none of them done
+      And the factory allows at most three attempts at a task
+      And the validator is never satisfied
+      When the factory runs the "tetris" run
+      Then there are no new work commits
+      And the run's folder has no uncommitted changes
 
   Rule: The factory runs the machines its assembly line gives it
 
@@ -49,7 +71,6 @@ Feature: Orchestration
 
     Example: The careful line, copied
       Given a new target, with a seed describing a game of Snake
-      And the target has the machines planner, doer and validator
       And the "careful" line has been copied into the target
       And a run named "snake", on the "careful" line, with that seed and target
       And a plan for each run with three tasks of its own, none of them done
@@ -64,7 +85,7 @@ Feature: Orchestration
       And a plan with three tasks, none of them done
       When the factory runs the "tetris" run
       Then no agent has been called
-      And there are no new commits
+      And there are no new work commits
 
   Rule: The doer works on one task at a time
 
@@ -107,7 +128,7 @@ Feature: Orchestration
       When the factory runs the "tetris" run
       Then the doer has been called three times
       And it reports that a task hit its limit
-      And there are no new commits
+      And there are no new work commits
       And the factory has stopped
 
   Rule: The factory commits each time a task is finished
@@ -139,7 +160,7 @@ Feature: Orchestration
       Given a plan in which every task is done
       When the factory runs the "tetris" run
       Then the doer has not been called
-      And there are no new commits
+      And there are no new work commits
       And the factory has stopped
 
   Rule: The line routes on each machine's result
@@ -153,7 +174,7 @@ Feature: Orchestration
       And the validator answers in prose, with no result
       When the factory runs the "tetris" run
       Then it reports that it could not read the validator's result
-      And there are no new commits
+      And there are no new work commits
       And the factory has stopped
 
     Example: A label the result does not have
@@ -161,4 +182,4 @@ Feature: Orchestration
       And the edges from validator are labelled "approved" and "not approved"
       When the factory runs the "tetris" run
       Then it reports that the result of validator has no field "approved"
-      And there are no new commits
+      And there are no new work commits
