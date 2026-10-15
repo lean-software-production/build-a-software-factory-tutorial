@@ -10,7 +10,7 @@ the plan. A machine has a name and a folder of its own, which is the
 configuration of the harness that runs it, `pi` by default or another
 named there. The folder holds the machine's `AGENTS.md`, its
 instructions, and the rest of its configuration, such as its model. It
-also holds the machine's own copy of your login, which the factory keeps
+also holds the machine's own copy of your login, which is kept
 out of Git; with no login, a machine uses its provider's API key. The
 harness runs on that folder's configuration and no other: not yours,
 and none found in or above the target, whose files are the machine's

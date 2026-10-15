@@ -27,8 +27,8 @@ on the machine's configuration instead of yours. The folder holds:
   choice. The harness's own settings files go here too, when it needs
   any.
 - **Its own copy of your login** — a harness keeps its login in its
-  configuration directory, so a machine needs one of its own. The
-  factory keeps it out of Git.
+  configuration directory, so a machine needs one of its own. It
+  is kept out of Git.
 
 The factory gives each machine its own `AGENTS.md`, and no other
 machine's. Change a machine's `AGENTS.md`, and the machine changes, with
