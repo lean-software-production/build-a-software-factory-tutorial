@@ -10,16 +10,23 @@ all three, chosen for the run. This homework moves each machine out of
 your code and into a folder of its own, in your factory's folder:
 `machines/<name>/`.
 
-A machine's folder holds two things:
+A machine's folder is the **configuration directory of the harness that
+runs it**. Every coding agent has one, `~/.pi/agent`, `~/.claude` or
+`~/.codex` when you use it yourself, and each can be pointed somewhere
+else. The factory points it at the machine's folder, so the harness runs
+on the machine's configuration instead of yours. The folder holds:
 
 - **`AGENTS.md`** — the machine's instructions: what it is for, how it
   does its job, and anything it should bring to the work, such as the
-  validator's lens. `AGENTS.md` is a convention most coding agents
-  already read, so the same file serves whichever harness runs the
-  machine.
+  validator's lens. Whichever harness runs the machine, this is the file
+  you write.
 - **The rest of its configuration** — the harness that runs it (`pi`,
   unless it names another) and whatever that harness needs, such as its
-  model. The file's name and format are your choice.
+  model. The file's name and format are your choice. The harness's own
+  settings files go here too, when it needs any.
+- **Its own copy of your login** — a harness keeps its login in its
+  configuration directory, so a machine needs one of its own. The
+  factory keeps it out of Git.
 
 The factory gives each machine its own `AGENTS.md`, and no other
 machine's. Change a machine's `AGENTS.md`, and the machine changes, with
@@ -28,7 +35,8 @@ no change to your code.
 ## What your factory's folder looks like
 
 The format of the configuration file is yours; `machine.json` is only an
-example:
+example. Here each machine runs a different harness, to show what each
+one keeps:
 
 ```text
 factory/
@@ -36,12 +44,17 @@ factory/
     planner/
       AGENTS.md
       machine.json      {"harness": "pi", "model": "<a model>"}
+      auth.json         pi's login, copied in; ignored by Git
     doer/
       AGENTS.md
-      machine.json      {"harness": "pi", "model": "<a model>"}
+      CLAUDE.md         "@AGENTS.md", so Claude Code reads AGENTS.md
+      machine.json      {"harness": "claude", "model": "<a model>"}
+      .credentials.json Claude Code's login, copied in; ignored by Git
     validator/
       AGENTS.md
-      machine.json      {"harness": "pi", "model": "<another model>"}
+      config.toml       Codex's settings
+      machine.json      {"harness": "codex", "model": "<another model>"}
+      auth.json         Codex's login, copied in; ignored by Git
 ```
 
 A validator's `AGENTS.md` might read:
@@ -68,26 +81,91 @@ plan and the seed are, the work to check, the validator's findings, and
 the fields its result must have. What the machine *is* comes from its
 folder.
 
-## Watch for
+## Configuration, and work
 
-Your machines run in the target, and the target sits inside your capstone
-repository. Coding agents look for `AGENTS.md` (and `CLAUDE.md`) in the
-folder they run in and the folders above it. So a machine can pick up
-your repository's own `AGENTS.md`, the one that coaches you, and it will
-not find its own, which is in `factory/machines/<name>/`, not above the
-target.
+A machine runs in the target, and the target is its work: the files the
+machine reads and changes. That stays as it is.
 
-So the factory has to hand each machine its `AGENTS.md`. How is up to
-you: in the prompt, which works with any harness, or through a flag the
-harness has, such as pi's `--append-system-prompt`. pi's
-`--no-context-files` stops it reading the `AGENTS.md` files around the
-target.
+What changes is where the machine's **configuration** comes from. Left
+to itself, a harness also reads instruction files it finds around the
+folder it runs in. Your target sits inside your capstone repository, so
+a machine would pick up the repository's own `AGENTS.md`, the one that
+coaches you, and any `CLAUDE.md`. It would read your own configuration
+too, in your home folder. None of that is the machine's. The factory
+points each harness at the machine's folder, and turns off its search
+for instructions around the target. An `AGENTS.md` in the target itself
+is part of the product, not the machine's instructions.
+
+Each harness does this its own way. Each recipe below was tried with a
+copied login, and with an API key instead:
+
+| Harness | Point it at the machine's folder | Its instructions | Stop it reading other instructions | Login to copy in | Or, from the environment |
+|---|---|---|---|---|---|
+| pi | `PI_CODING_AGENT_DIR=<folder>` | `--append-system-prompt <folder>/AGENTS.md` | `--no-context-files` | `~/.pi/agent/auth.json` | the provider's key, such as `ANTHROPIC_API_KEY` |
+| Claude Code | `CLAUDE_CONFIG_DIR=<folder>` | a `CLAUDE.md` in the folder saying `@AGENTS.md` | `--setting-sources user` | `~/.claude/.credentials.json` | `ANTHROPIC_API_KEY` |
+| Codex | `CODEX_HOME=<folder>` | `AGENTS.md`, read from the folder as it is | `project_doc_max_bytes = 0` in the folder's `config.toml` | `~/.codex/auth.json` | `CODEX_API_KEY` |
+
+For example, the planner above runs as:
+
+```sh
+PI_CODING_AGENT_DIR=<planner's folder> pi -p --no-session --no-context-files \
+  --append-system-prompt <planner's folder>/AGENTS.md "<the prompt>"
+```
+
+pi's `--no-context-files` also stops it reading an `AGENTS.md` in its
+own configuration directory, which is why its `AGENTS.md` is passed with
+`--append-system-prompt`. Claude Code reads a `CLAUDE.md` in its
+configuration directory, but not an `AGENTS.md`, so the `CLAUDE.md`
+imports it.
+
+**Antigravity (`agy`) is not supported yet.** It cannot be pointed at a
+configuration of its own, and it always reads the instruction files up
+to the top of your repository.
+
+### What lands in a machine's folder
+
+A harness writes into its configuration directory as it runs: Claude
+Code and Codex keep their sessions, logs and caches there, and pi its
+model cache. Only the configuration you wrote belongs in Git. One way to
+keep everything else out is a `.gitignore` in each machine's folder that
+ignores all but your files:
+
+```gitignore
+*
+!.gitignore
+!AGENTS.md
+!CLAUDE.md
+!config.toml
+!machine.json
+```
+
+A copied ChatGPT or Claude login refreshes itself as it is used, so a
+copy can stop working. If a machine says it cannot sign in, copy your
+login in again, or give it an API key.
+
+pi needs a recent Node: on Node 23.2 it can crash with
+`zlib.createZstdDecompress is not a function`. Node 24 works.
+
+## Adding a machine
+
+Every new machine needs the same few steps. None of them is hidden in
+the factory:
+
+1. Make its folder in `factory/machines/`, named for the machine.
+2. Write its `AGENTS.md`, and its configuration: which harness, which
+   model.
+3. Copy your login for that harness into the folder, or make sure its
+   provider's API key is in the environment.
+4. Check that Git ignores the login: `git check-ignore <folder>/auth.json`
+   (or `.credentials.json`) should print its path.
 
 ## Once your suite passes
 
 - Move every machine's prompt out of your factory's code and into its
   `AGENTS.md`. Search your factory's source for your validator's lens:
   it should not be there.
+- Run one machine on a different harness from the others, by changing
+  only its folder.
 - Build a generation in a fresh target:
 
   ```sh

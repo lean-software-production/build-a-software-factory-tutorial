@@ -24,7 +24,7 @@ factory/
     careful/
       assembly-line.dot
       machines/
-        planner/    AGENTS.md, and its configuration
+        planner/    AGENTS.md, its configuration and its login
         doer/
         validator/
 ```

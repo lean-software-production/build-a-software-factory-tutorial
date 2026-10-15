@@ -25,7 +25,9 @@ factory source stays in `factory/`.
   a run now owns that plan. Or start with a fresh target.
 - **The run's folder is committed.** The factory commits it in commits
   of its own, never with the work, so a run's plan and record stay in
-  Git with what it built.
+  Git with what it built. A machine's login never is: when you move or
+  copy a line, its machines' logins come with it, and Git still ignores
+  them.
 
 ```text
 tetris/tetris-005/
@@ -33,7 +35,7 @@ tetris/tetris-005/
     careful/
       assembly-line.dot
       machines/
-        planner/    AGENTS.md, and its configuration
+        planner/    AGENTS.md, its configuration and its login
         doer/
         validator/
       runs/
