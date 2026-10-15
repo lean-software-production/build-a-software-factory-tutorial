@@ -43,6 +43,7 @@ it to students.
 ### Runs and lines
 
 - `the target has the machines planner, doer and validator` — 004+. Their configurations, in the latest target's `.assembly-lines/.machines/`.
+  From 005a each has its own login, unless a step says it has none.
 - `the target has the three big brains` — 005+. reviewer_1 to reviewer_3 and the synthesiser, each a machine of the latest target's, configured alike but for their models.
 - `the target has an assembly line {string} on which the doer's work is validated` — 004+. The line in `assembly-line.feature`'s Background, in the latest target's `.assembly-lines/`.
 - `the target has an assembly line {string} on which the doer goes straight to the planner` — 004+. The same line, without the validator.
@@ -93,7 +94,12 @@ the line routes on: `complete` for the planner, `satisfied` and
 - `the agent is pi` — 001, `@real-agent`.
 - `every machine runs pi` — 002+, `@real-agent`.
 - `the validator's lens is {word}` — 002+. From 005a, written in the validator's `AGENTS.md`.
-- `the {word}'s AGENTS.md says {string}` — 005a+. That machine's instructions: the `AGENTS.md` in its folder in the latest target's `.assembly-lines/.machines/`.
+- `the {word}'s AGENTS.md says {string}` — 005a+. That machine's instructions: the `AGENTS.md` in its folder in the latest target's `.assembly-lines/.machines/`, the configuration its harness runs on.
+- `the folder above the target has an AGENTS.md saying {string}` — 005a+, `@real-agent`. The folder that holds the target, inside the test repository.
+- `the {word} has its own login` — 005a+. A copy of a login in its folder, as its harness keeps it.
+- `the {word} has no login` — 005a+. None in its folder.
+- `there is an API key for the {word}'s provider` — 005a+. In the environment the factory runs in.
+- `there is no API key for the {word}'s provider` — 005a+.
 
 ### Limits
 
@@ -202,6 +208,8 @@ the run and compare after it finishes.
 - `Tetris has been built in the target` — 001+, `@real-agent`.
 - `{string} in the target starts Tetris` — 001+, `@real-agent`.
 - `its board is 8 columns wide` — 001+, `@real-agent`.
+- `the target's CODEWORD file says {string}` — 005a+, `@real-agent`.
+- `the {word}'s login is ignored by Git` — 005a+. `git check-ignore` reports it, wherever the machine's folder is.
 
 ### The factory
 
@@ -228,6 +236,7 @@ the run and compare after it finishes.
 - `it reports that it could not run reviewer_2` — 005+.
 - `it reports that finish cannot be reached from {word}` — 003+. Among the machines it names.
 - `it says the {string} run already has a target` — 004+.
+- `it reports that the {word} cannot sign in` — 005a+.
 
 ### Fan out
 
@@ -304,6 +313,8 @@ What a machine (or 001's agent) was given:
 - `the {word} was asked for a result with the fields {string} and {string}` — 002+.
 
 - `the {word} was pointed at the plan and at the seed` — 001+.
+- `the {word} signed in with its own login` — 005a+.
+- `the {word} signed in with the API key` — 005a+.
 - `the {word} was given the work for the {word} task` — 002+.
 - `it was not given the work for the {word} task` — 002+.
 - `the {word} was given {string}` — 002+.

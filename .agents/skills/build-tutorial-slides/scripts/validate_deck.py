@@ -73,15 +73,15 @@ class DeckParser(HTMLParser):
 
 def iteration_specs() -> dict[str, str]:
     specs: dict[str, str] = {}
-    for path in sorted(ITERATIONS.glob("[0-9][0-9][0-9]-*")):
-        match = re.match(r"(\d{3})-(.+)", path.name)
+    for path in sorted(ITERATIONS.glob("[0-9][0-9][0-9]*-*")):
+        match = re.match(r"(\d{3}[a-z]?)-(.+)", path.name)
         if not match or not path.is_dir():
             continue
         readme = path / "README.md"
         heading = ""
         if readme.is_file():
             heading_match = re.search(
-                r"^#\s+Homework\s+\d+\s+[—-]\s+(.+?)\s*$",
+                r"^#\s+Homework\s+\d+[a-z]?\s+[—-]\s+(.+?)\s*$",
                 readme.read_text(encoding="utf-8"),
                 re.MULTILINE,
             )

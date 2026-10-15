@@ -6,7 +6,8 @@ are the whole spec of the factory at this point, not just the new parts.
 Homework 5a, machine configuration, was added after homework 5. If you
 haven't done it, sync your fork on GitHub, set `factory/ITERATION` to
 `005 Done`, and say "fetch iteration": you'll get 5a, and this homework
-after it.
+after it. 5a makes each machine's folder its harness's configuration,
+with its own instructions and its own copy of your login.
 
 The factory builds the same software it built for homework 5. What is new
 is that you can watch it: what every machine generates, and what every
@@ -41,7 +42,19 @@ bridge.
 
 Which ACP agent runs a machine, with which model, stays in the machine's
 configuration, and so does the model's provider, which the token totals
-follow. The factory still hands each machine its `AGENTS.md`.
+follow. The machine's folder is still its harness's configuration, with
+its `AGENTS.md` and its own login. Each ACP agent runs on the folder
+much as its harness did in homework 5a:
+
+| ACP agent | Point it at the machine's folder | Its instructions, and nothing else |
+|---|---|---|
+| `pi-rpc-acp` | `PI_CODING_AGENT_DIR=<folder>` in its environment | arguments passed on to pi: `--no-context-files --append-system-prompt <folder>/AGENTS.md` |
+| `claude-agent-acp` | `CLAUDE_CONFIG_DIR=<folder>` in its environment | the folder's `CLAUDE.md` saying `@AGENTS.md`, and `"_meta": {"claudeCode": {"options": {"settingSources": ["user"]}}}` in `session/new` |
+| `codex-acp` | `CODEX_HOME=<folder>` in its environment | the folder's `AGENTS.md`, and `project_doc_max_bytes = 0` in its `config.toml` |
+
+Without that `_meta`, `claude-agent-acp` also reads the `CLAUDE.md` and
+`AGENTS.md` files around the target. Antigravity has no ACP agent, and is
+not supported.
 
 ## The commands you'll end up with
 
