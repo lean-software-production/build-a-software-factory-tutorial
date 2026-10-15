@@ -51,22 +51,27 @@ def catalogue():
     return phrases
 
 
+def ident(folder):
+    """An iteration's id: 005, or 005a for one inserted after 005."""
+    return folder.name.split("-", 1)[0]
+
+
 def main(args):
-    folders = sorted(p for p in ROOT.iterdir() if p.is_dir() and re.match(r"\d{3}-", p.name))
+    folders = sorted(p for p in ROOT.iterdir() if p.is_dir() and re.match(r"\d{3}[a-z]?-", p.name))
     if args:
         lo, hi = (args + args)[:2]
-        folders = [f for f in folders if lo <= f.name[:3] <= hi]
+        folders = [f for f in folders if lo <= ident(f) <= hi]
     phrases = catalogue()
     ok = True
     for folder in folders:
         for keyword, text in sorted(steps(folder)):
             if not any(k == keyword and r.match(text) for k, _, r in phrases):
-                print(f"{folder.name[:3]}: not in STEPS.md: {keyword} {text}")
+                print(f"{ident(folder)}: not in STEPS.md: {keyword} {text}")
                 ok = False
     for before, after in zip(folders, folders[1:]):
         a, b = steps(before), steps(after)
         added, dropped = sorted(b - a), sorted(a - b)
-        print(f"\n{before.name[:3]} -> {after.name[:3]}: {len(added)} added, {len(dropped)} dropped")
+        print(f"\n{ident(before)} -> {ident(after)}: {len(added)} added, {len(dropped)} dropped")
         for k, t in added:
             print(f"  + {k} {t}")
         for k, t in dropped:
