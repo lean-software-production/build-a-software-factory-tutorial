@@ -4,12 +4,12 @@
 |---|---|
 | 001 | [Basic unvalidated loop](001-basic-unvalidated-loop/README.md) |
 | 002 | [Checking the work](002-checking-the-work/README.md) |
-| 003 | [The assembly line](003-assembly-line/README.md) |
-| 004 | [Runs and targets](004-runs-and-targets/README.md) |
-| 005 | [Fan out](005-fan-out/README.md) |
-| 005a | [Machine configuration](005a-machine-configuration/README.md) |
-| 006 | [Watching](006-watching/README.md) |
-| 007 | [Steering](007-steering/README.md) |
+| 003 | [Machine configuration](003-machine-configuration/README.md) |
+| 004 | [The assembly line](004-assembly-line/README.md) |
+| 005 | [Runs and targets](005-runs-and-targets/README.md) |
+| 006 | [Fan out](006-fan-out/README.md) |
+| 007 | [Watching](007-watching/README.md) |
+| 008 | [Steering](008-steering/README.md) |
 
 Your progress is kept in your starter repo (`factory/ITERATION`),
 not here. `fetch-iteration` works through these in order.

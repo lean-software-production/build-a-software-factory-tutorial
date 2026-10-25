@@ -131,9 +131,9 @@ they take and what they produce. Which result do you prefer, and why?
 
 Keep `tetris/tetris-001` unchanged: the next homework uses it to explore
 the effect of validation. This is an informal experiment, not a feature
-requirement, so do not build a benchmarking framework. Later iterations
-will move model choice into machine configuration and give you better ways
-to compare cost and combine several models' judgements.
+requirement, so do not build a benchmarking framework. Homework 3 moves
+model choice into each machine's configuration, and later homeworks give
+you better ways to compare cost and combine several models' judgements.
 
 You will keep `tetris/tetris-001`. The next homework adds checking the work:
 the factory starts noticing when the agent's output is wrong.

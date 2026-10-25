@@ -148,7 +148,7 @@ lens:
 machine:
   term: "Machine"
   definition: |-
-    An *agent* running in a non-interactive harness: it is handed its inputs, runs to completion, and returns a result, with no human in the conversation while it works. Non-interactivity is the whole of the distinction — see *agent* for everything else. The internals can be a model call or ordinary deterministic code; from the *assembly line*'s point of view it makes no difference. A machine can be a *doer* or a *validator*. Its instructions and settings are kept with it, not in the factory: in the tutorial, a folder of its own that is its harness's configuration, holding its `AGENTS.md`, settings such as its model, and its own copy of the login. The harness reads no other configuration. [→ harnesses](building-blocks/harnesses.md)
+    An *agent* running in a non-interactive harness: it is handed its inputs, runs to completion, and returns a result, with no human in the conversation while it works. Non-interactivity is the whole of the distinction — see *agent* for everything else. The internals can be a model call or ordinary deterministic code; from the *assembly line*'s point of view it makes no difference. A machine can be a *doer* or a *validator*. Its instructions and settings are kept with it, not in the factory: in the tutorial, a folder of its own on its *assembly line*, that is its harness's configuration, holding its `AGENTS.md`, settings such as its model, and its own copy of the login. The harness reads no other configuration. [→ harnesses](building-blocks/harnesses.md)
 
 mcp-model-context-protocol:
   term: "MCP (Model Context Protocol)"
@@ -226,7 +226,7 @@ relevance-vs-context-bloat:
 run:
   term: "Run"
   definition: |-
-    A named execution of an *assembly line* on a *seed*, against a *target*. The run's own state — its plan and its record — lives with the *factory*, in `runs/<name>/`, not in the target. Naming the same run again picks it up where it stopped; starting or resuming it is an invocation of that run.
+    A named execution of an *assembly line* on a *seed*, against a *target*. The run's own state — its plan, its record and whatever its machines keep — lives in the target, in its line's folder at `.assembly-lines/<line>/runs/<name>/`, and is committed apart from the work. A run is found by its target and its name; naming the same run again picks it up where it stopped; starting or resuming it is an invocation of that run.
 
 seed:
   term: "Seed"
@@ -271,7 +271,7 @@ sub-agent:
 target:
   term: "Target"
   definition: |-
-    The folder a *run* builds its product in. Targets may share a Git repository; the factory commits only work inside the selected target and initializes Git only when no repository contains it. A target also holds the *assembly lines* and *machines* that build its product. The target is chosen when the run starts, and the run executes one of the target's lines. An assembly line never names a target, so the same line, copied into another codebase, can build there too.
+    The folder a *run* builds its product in. Targets may share a Git repository; the factory commits only work inside the selected target and initializes Git only when no repository contains it. A target also holds the *assembly lines* that build its product, each a folder in `.assembly-lines/` with its own *machines* and its *runs*. Every invocation of a run names its target, and the run executes one of the target's lines. An assembly line never names a target, so the same line, copied into another codebase, can build there too.
 
 token:
   term: "Token"

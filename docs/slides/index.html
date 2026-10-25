@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Get started with the Lean Software Production tutorial and see how seven iterations grow a small agent loop into an observable, steerable software factory.">
+  <meta name="description" content="Get started with the Lean Software Production tutorial and see how eight iterations grow a small agent loop into an observable, steerable software factory.">
   <title>Build a software factory · Lean Software Production</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
@@ -189,9 +189,9 @@
       <aside class="notes">Later homeworks move model choice into machine configuration, combine several models’ judgements and track token cost.</aside>
     </section>
 
-    <section class="center section-break" data-menu-title="Seven iterations, one story">
+    <section class="center section-break" data-menu-title="Eight iterations, one story">
       <p class="kicker">After the first loop</p>
-      <h2 class="sk-title"><span class="sk-hl">Seven iterations,</span><br><span class="sk-hl">one story</span></h2>
+      <h2 class="sk-title"><span class="sk-hl">Eight iterations,</span><br><span class="sk-hl">one story</span></h2>
       <p class="lede">Each homework exposes the next hidden assumption and turns it into a capability.</p>
       <img class="section-icon wide-icon" src="https://lean-software-production.github.io/brand/kit/icons/gear.svg" alt="Two gears">
     </section>
@@ -233,8 +233,25 @@
       <aside class="notes">Leave tetris/tetris-002 unchanged. Compare only differences supported by recorded validator findings; two model runs can differ anyway. No difference is a useful result.</aside>
     </section>
 
-    <section class="mid" data-iteration="003" data-menu-title="003 · Assembly line">
+    <section class="mid" data-iteration="003" data-menu-title="003 · Machine configuration">
       <p class="iteration-kicker">Homework 003</p>
+      <h2 class="sk-section">Machine configuration</h2>
+      <div class="split iteration-split">
+        <div>
+          <p class="lede compact">Each machine's folder becomes its harness's configuration.</p>
+          <ul class="sk-list sk-teal">
+            <li><code>AGENTS.md</code>: what the machine is for, and its lens</li>
+            <li>Configuration: its harness and model, and its own login</li>
+            <li>Change a machine without changing factory code</li>
+          </ul>
+        </div>
+        <img src="https://lean-software-production.github.io/brand/kit/icons/gear.svg" alt="A gear">
+      </div>
+      <div class="gain"><span>Factory gains</span><strong>Machines configured as data, on any harness.</strong></div>
+    </section>
+
+    <section class="mid" data-iteration="004" data-menu-title="004 · Assembly line">
+      <p class="iteration-kicker">Homework 004</p>
       <h2 class="sk-section">The assembly line</h2>
       <div class="split iteration-split">
         <div>
@@ -250,20 +267,20 @@
       <div class="gain"><span>Factory gains</span><strong>A configurable workflow instead of a hard-coded sequence.</strong></div>
     </section>
 
-    <section class="mid" data-iteration="004" data-menu-title="004 · Runs and targets">
-      <p class="iteration-kicker">Homework 004</p>
+    <section class="mid" data-iteration="005" data-menu-title="005 · Runs and targets">
+      <p class="iteration-kicker">Homework 005</p>
       <h2 class="sk-section">Runs and targets</h2>
       <div class="sk-row three-up">
-        <div class="sk-panel sk-mustard"><div class="sk-step"><span class="sk-label">Factory</span></div><p>Moves into its own codebase.</p></div>
-        <div class="sk-panel sk-teal"><div class="sk-step"><span class="sk-label">Target</span></div><p>Owns its product, lines and machines.</p></div>
-        <div class="sk-panel sk-forest"><div class="sk-step"><span class="sk-label">Run</span></div><p>Remembers a target, line, seed and plan.</p></div>
+        <div class="sk-panel sk-mustard"><div class="sk-step"><span class="sk-label">Factory</span></div><p>Keeps nothing of a run: only its own code.</p></div>
+        <div class="sk-panel sk-teal"><div class="sk-step"><span class="sk-label">Line</span></div><p>A folder in the target: its graph, its machines and its runs.</p></div>
+        <div class="sk-panel sk-forest"><div class="sk-step"><span class="sk-label">Run</span></div><p>Remembers its line and seed; its plan and record are committed on its line.</p></div>
       </div>
-      <pre class="single-command"><code>bin/factory --run tetris --target tetris/tetris-003 --line careful --seed tetris/spec.md</code></pre>
+      <pre class="single-command"><code>bin/factory --run tetris --target tetris/tetris-005 --line careful --seed tetris/spec.md</code></pre>
       <div class="gain"><span>Factory gains</span><strong>Many resumable runs across many codebases.</strong></div>
     </section>
 
-    <section class="mid" data-iteration="005" data-menu-title="005 · Fan out">
-      <p class="iteration-kicker">Homework 005</p>
+    <section class="mid" data-iteration="006" data-menu-title="006 · Fan out">
+      <p class="iteration-kicker">Homework 006</p>
       <h2 class="sk-section">Fan out</h2>
       <div class="fan-layout">
         <div class="sk-panel sk-teal fan-source"><span class="sk-label">Doer</span></div>
@@ -280,25 +297,8 @@
       <div class="gain"><span>Factory gains</span><strong>Parallel machines, fan-in and multi-model review.</strong></div>
     </section>
 
-    <section class="mid" data-iteration="005a" data-menu-title="005a · Machine configuration">
-      <p class="iteration-kicker">Homework 005a</p>
-      <h2 class="sk-section">Machine configuration</h2>
-      <div class="split iteration-split">
-        <div>
-          <p class="lede compact">Each machine's folder becomes its harness's configuration.</p>
-          <ul class="sk-list sk-teal">
-            <li><code>AGENTS.md</code>: what the machine is for, and its lens</li>
-            <li>Configuration: its harness and model, and its own login</li>
-            <li>No instructions from around the target, or from yours</li>
-          </ul>
-        </div>
-        <img src="https://lean-software-production.github.io/brand/kit/icons/gear.svg" alt="A gear">
-      </div>
-      <div class="gain"><span>Factory gains</span><strong>Machines configured as data, on any harness.</strong></div>
-    </section>
-
-    <section class="mid" data-iteration="006" data-menu-title="006 · Watching">
-      <p class="iteration-kicker">Homework 006</p>
+    <section class="mid" data-iteration="007" data-menu-title="007 · Watching">
+      <p class="iteration-kicker">Homework 007</p>
       <h2 class="sk-section">Watching</h2>
       <div class="split iteration-split">
         <div>
@@ -306,7 +306,7 @@
           <pre><code>./factory --run tetris …
 # started run tetris
 
-./factory watch tetris
+./factory watch tetris --target …
 # planner | …
 # doer    | …
 # tokens  | …</code></pre>
@@ -319,15 +319,15 @@
       <div class="gain"><span>Factory gains</span><strong>Background runs, durable output and live cost visibility.</strong></div>
     </section>
 
-    <section class="mid" data-iteration="007" data-menu-title="007 · Steering">
-      <p class="iteration-kicker">Homework 007</p>
+    <section class="mid" data-iteration="008" data-menu-title="008 · Steering">
+      <p class="iteration-kicker">Homework 008</p>
       <h2 class="sk-section">Steering</h2>
       <div class="split iteration-split">
         <div>
           <p class="lede compact">Watching becomes a conversation. Send a message to the machine working now.</p>
-          <pre><code>./factory say tetris doer \
+          <pre><code>./factory say tetris --target … doer \
   "use curses, not print"</code></pre>
-          <p class="small-copy">A message belongs to that machine run. For a lasting instruction, change the seed, plan or machine prompt.</p>
+          <p class="small-copy">A message belongs to that machine run. For a lasting instruction, change the seed, the plan or the machine's <code>AGENTS.md</code>.</p>
         </div>
         <div class="sk-bubble sk-tail-right">“I can see what you’re doing—and redirect you before the turn ends.”</div>
       </div>
@@ -338,10 +338,10 @@
       <h2 class="sk-section">What you have built</h2>
       <div class="capability-stack">
         <div class="stack-item sk-mustard"><span>001</span> Plans and does</div>
-        <div class="stack-item sk-teal"><span>002–003</span> Checks and routes</div>
-        <div class="stack-item sk-forest"><span>004</span> Remembers runs and targets</div>
-        <div class="stack-item sk-coral"><span>005</span> Runs branches in parallel</div>
-        <div class="stack-item sk-blue"><span>006–007</span> Shows its work and listens</div>
+        <div class="stack-item sk-teal"><span>002–004</span> Checks, configures and routes</div>
+        <div class="stack-item sk-forest"><span>005</span> Remembers runs and targets</div>
+        <div class="stack-item sk-coral"><span>006</span> Runs branches in parallel</div>
+        <div class="stack-item sk-blue"><span>007–008</span> Shows its work and listens</div>
       </div>
       <div class="sk-ribbon"><img src="https://lean-software-production.github.io/brand/kit/icons/robot-report.svg" alt=""><span class="sk-kicker">The result:</span> a small orchestration system whose intelligence stays in agents and files.</div>
     </section>
@@ -364,7 +364,7 @@
             <li>Edit the fetched spec</li>
             <li>Hide intelligence in factory code</li>
             <li>Parse an agent’s prose</li>
-            <li>Build all seven homeworks at once</li>
+            <li>Build all eight homeworks at once</li>
           </ul>
         </div>
       </div>
