@@ -2,7 +2,7 @@
 
 This repo holds the course's iterations (`docs/iterations/`). Students
 don't work here: they work in their copy of
-[capstone-project-starter](https://github.com/lean-software-production/capstone-project-starter),
+[my-factory-starter](https://github.com/lean-software-production/my-factory-starter),
 whose `fetch-iteration` skill downloads each iteration from this repo's
 `main` branch on GitHub.
 
