@@ -1,15 +1,13 @@
-# Tutorial
+# Build a Software Factory tutorial
 
 A hands-on course for building an agentic software factory. Work through the
-iterations one homework at a time, as directed by your instructor.
-
-[See the tutorial slides](https://lean-software-production.github.io/tutorial/slides/)
-for the journey from the first agent loop to an observable, steerable factory.
+iterations in order, one homework at a time. They take you from the first
+agent loop to a factory you can watch and steer.
 
 ## Get started
 
 1. Fork or clone
-   [capstone-project-starter](https://github.com/lean-software-production/capstone-project-starter).
+   [my-factory-starter](https://github.com/lean-software-production/my-factory-starter).
    That is where you work. You don't need to clone this repo.
 2. Open your favourite coding agent harness (Claude Code, Codex, Pi,
    etc) at the root of your starter repository. Your factory source
