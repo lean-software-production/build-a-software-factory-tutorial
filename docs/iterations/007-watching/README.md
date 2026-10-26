@@ -90,6 +90,12 @@ machine generated, its transcript, and what it spent all go there, and
 the factory commits them with the rest of the run's folder, so a
 generation's record stays in Git with the game it built.
 
+A machine doesn't stream what it generates in lines. Each
+`agent_message_chunk` can be a few characters, or several lines. The
+record keeps what each machine generated a line at a time, so gather the
+pieces into whole lines before they go in, rather than writing one entry
+per chunk.
+
 ## Your doubles speak ACP too
 
 Your test doubles, which used to replace machines, now replace "machines that communicate via ACP".
