@@ -69,6 +69,15 @@ Feature: Observability
       When I stop the "tetris" run
       Then what I am watching shows that the "tetris" run was stopped
 
+  Rule: The record keeps what a machine generates a line at a time, however it arrives
+
+    Example: An answer streamed in pieces
+      Given a plan with one task, not done
+      And the doer says "placed the first tetromino", a few characters at a time
+      When the factory runs the "tetris" run
+      And I read the "tetris" run's record
+      Then it shows "placed the first tetromino" from the doer, as one line
+
   Rule: The record outlives the run
 
     Example: A run that has finished

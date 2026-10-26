@@ -84,6 +84,7 @@ the line routes on: `complete` for the planner, `satisfied` and
 - `the {word} answers in prose, with no result` — 001+. Having done its work: the agent or doer writes a file called `UNREADABLE`.
 - `the {word} says {string} before its result` — 001+. A line of prose, then its result.
 - `the doer says {string}, then {string}` — 007+. Generates the first line; the second only once the attempt carries on to its end.
+- `the doer says {string}, a few characters at a time` — 007+. Generates that one line as several `agent_message_chunk`s of a few characters each, the way a harness streams what it generates.
 - `the reviewers' lens is {word}` — 006+. Written in each reviewer's `AGENTS.md`.
 - `the reviewers run on Anthropic, Google and OpenAI models` — 007+. reviewer_1 to reviewer_3's configurations name those providers.
 - `the {word} cannot be run` — 001+. Its harness is a path where no program exists.
@@ -269,6 +270,7 @@ from, and the tokens in and out per machine.
 - `I see what the planner generated` — 007+.
 - `it shows what every machine generated` — 007+.
 - `it shows what every machine spent` — 007+.
+- `it shows {string} from the doer, as one line` — 007+. The record holds that line whole, as one line from the doer, however many pieces it arrived in.
 - `the record is in the run's folder in the target, and committed` — 007+. Under `.assembly-lines/<line>/runs/<run>/`, with no uncommitted changes once the run has ended.
 - `it shows tokens in and tokens out for the {word}` — 007+.
 - `it shows a total for each of Anthropic, Google and OpenAI` — 007+.
